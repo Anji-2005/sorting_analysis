@@ -1,0 +1,42 @@
+1. Generate random arrays of size n
+2. Make 3 copies of the same array
+3. Sort copy 1 using Heap sort
+   Sort copy 2 using Merge sort
+   Sort copy 3 using Quick sort
+4. Check if all sorted arrays are the same
+5. Measure time taken by each Algorithm
+6. Repeat this 10 times
+7. Calculate average, minimum and maximum time
+8. Estimate constant c using:
+   T(n) ≈ c × n log₂ n
+
+Code Flow of Execution:
+1. Import libraries
+2. Define heapify()
+3. Define heap_sort()
+4. Define merge_sort()
+5. Define merge()
+6. Define quick_sort()
+7. Define measure_sorting_time()
+8. Set n = 100 and trials = 10
+9. Create empty time lists
+10. Start trial loop
+11. Generate random array
+12. Make 3 copies
+13. Run heap sort and measure time
+14. Run merge sort and measure time
+15. Run quick sort and measure time
+16. Compare sorted outputs
+17. Store times
+18. Repeat steps 11–17 ten times
+19. Define calculate_statistics()
+20. Calculate statistics for all algorithms
+21. Print final comparison table
+
+All three algorithms have O(nlogn) expected or standard
+complexity, but their constant factors differ in practical
+implementation. 
+In my experiment, Quick Sort showed the smallest estimated
+constant and it was the fastest.
+For different inputs, machine conditions, or pivot choices,
+results can change.
