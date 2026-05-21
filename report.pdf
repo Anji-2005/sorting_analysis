@@ -1,42 +1,233 @@
-1. Generate random arrays of size n
-2. Make 3 copies of the same array
-3. Sort copy 1 using Heap sort
-   Sort copy 2 using Merge sort
-   Sort copy 3 using Quick sort
-4. Check if all sorted arrays are the same
-5. Measure time taken by each Algorithm
-6. Repeat this 10 times
-7. Calculate average, minimum and maximum time
-8. Estimate constant c using:
+# Experimental Analysis of Heap Sort, Merge Sort, and Quick Sort
+
+# 1. Abstract
+## Overview
+This project presents an experimental comparison of three classical comparison-based sorting algorithms:
+* Heap Sort
+* Merge Sort
+* Quick Sort
+## Experimental Setup
+The algorithms were tested using:
+* Input sizes from **100 to 1000** (step size = 100)
+* **5 input distributions**:
+  * Random
+  * Sorted
+  * Reverse Sorted
+  * Nearly Sorted
+  * Duplicate Heavy
+* **10 trials** for each configuration
+## Metrics Measured
+The following metrics were recorded:
+* Execution Time
+* Number of Comparisons
+* Number of Swaps / Data Movements
+* Number of Recursive Calls
+* Maximum Recursion Depth
+* Peak Memory Usage
+* Constant Factor `c`
+## Major Findings
+* Merge Sort achieved the best overall runtime.
+* Heap Sort used the least memory.
+* Quick Sort was fastest on random input.
+* Quick Sort performed poorly on sorted and reverse-sorted arrays.
+* Practical performance differed significantly despite similar asymptotic complexity.
+
+# 2. Introduction
+## What is Sorting?
+Sorting is the process of arranging data in ascending or descending order.
+Example:
+Before Sorting: [5, 2, 9, 1, 7]
+After Sorting : [1, 2, 5, 7, 9]
+## Importance of Sorting
+Sorting is used in:
+* Searching algorithms
+* Database systems
+* Data analytics
+* Machine learning pipelines
+* Operating systems
+* Financial applications
+## Motivation
+Although Heap Sort, Merge Sort, and Quick Sort all have average complexity of `O(n log n)`, their practical performance can differ because of:
+* Number of comparisons
+* Number of swaps
+* Recursion overhead
+* Memory allocation
+* Input characteristics
+This project investigates these differences experimentally.
+
+# 3. Objective
+The main objectives of this project are:
+1. Implement Heap Sort, Merge Sort, and Quick Sort from scratch.
+2. Compare their performance for different input sizes.
+3. Analyze performance across different input distributions.
+4. Measure multiple practical metrics.
+5. Estimate the constant factor in:
    T(n) ≈ c × n log₂ n
+6. Understand why algorithms with similar Big-O complexity perform differently.
 
-Code Flow of Execution:
-1. Import libraries
-2. Define heapify()
-3. Define heap_sort()
-4. Define merge_sort()
-5. Define merge()
-6. Define quick_sort()
-7. Define measure_sorting_time()
-8. Set n = 100 and trials = 10
-9. Create empty time lists
-10. Start trial loop
-11. Generate random array
-12. Make 3 copies
-13. Run heap sort and measure time
-14. Run merge sort and measure time
-15. Run quick sort and measure time
-16. Compare sorted outputs
-17. Store times
-18. Repeat steps 11–17 ten times
-19. Define calculate_statistics()
-20. Calculate statistics for all algorithms
-21. Print final comparison table
+# 4. Constant Factor Analysis
+Big-O notation ignores constants.
+A more realistic model is:
+T(n) ≈ c × n log₂ n
+Therefore:
+c = T(n) / (n log₂ n)
+Where:
+* `T(n)` = measured execution time
+* `n` = input size
+* `c` = hidden constant factor
+A smaller value of `c` indicates better practical efficiency.
 
-All three algorithms have O(nlogn) expected or standard
-complexity, but their constant factors differ in practical
-implementation. 
-In my experiment, Quick Sort showed the smallest estimated
-constant and it was the fastest.
-For different inputs, machine conditions, or pivot choices,
-results can change.
+# 5. Experimental Methodology
+## 5.1 Input Sizes
+The following values of `n` were used:
+100, 200, 300, 400, 500, 600, 700, 800, 900, 1000
+## 5.2 Input Distributions
+### 1. Random
+Elements generated randomly.
+### 2. Sorted
+Elements already in ascending order.
+### 3. Reverse Sorted
+Elements in descending order.
+### 4. Nearly Sorted
+Mostly sorted with a few random swaps.
+### 5. Duplicate Heavy
+Large number of repeated values.
+## 5.3 Number of Trials
+Each experiment was repeated 10 times
+## 5.4 Total Runs
+Total runs performed:
+* 10 sizes
+* 5 input types
+* 10 trials
+* 3 algorithms
+Total:
+10 × 5 × 10 × 3 = 1500 runs
+
+# 6. Metrics Considered
+## 1. Execution Time
+Measured using `time.perf_counter()`.
+Recorded values:
+* Average Time
+* Minimum Time
+* Maximum Time
+## 2. Comparisons
+Number of element-to-element comparisons.
+## 3. Swaps / Data Movements
+* Heap Sort and Quick Sort: actual swaps.
+* Merge Sort: element copies during merging.
+## 4. Recursive Calls
+Total number of function calls due to recursion.
+## 5. Maximum Recursion Depth
+Deepest recursion level reached.
+## 6. Peak Memory Usage
+Measured using `tracemalloc`.
+## 7. Constant Factor
+Calculated as:
+c = T(n) / (n log₂ n)
+
+# 7. Code Workflow
+1. Import required libraries.
+2. Generate arrays for each input type.
+3. Create three copies of the same array.
+4. Run Heap Sort.
+5. Run Merge Sort.
+6. Run Quick Sort.
+7. Verify all outputs match.
+8. Record all metrics.
+9. Repeat for 10 trials.
+10. Compute summary statistics.
+11. Save results to CSV.
+12. Generate graphs.
+
+# 8. Results Summary
+## Overall Performance Ranking (Execution Time)
+1. Merge Sort
+2. Heap Sort
+3. Quick Sort
+## Memory Usage Ranking
+1. Heap Sort (lowest memory)
+2. Merge Sort
+3. Quick Sort
+## Constant Factor Ranking
+1. Merge Sort (smallest constant)
+2. Heap Sort
+3. Quick Sort
+
+# 9. Observations
+## Merge Sort
+* Fastest overall.
+* Lowest constant factor.
+* Stable across all input types.
+* Requires extra memory.
+## Heap Sort
+* Most memory-efficient.
+* Performance consistent across all cases.
+* Slower than Merge Sort due to many swaps.
+## Quick Sort
+* Fastest on random input.
+* Performs poorly on sorted and reverse-sorted arrays.
+* Worst-case behavior due to fixed pivot selection.
+
+# 10. Input-Type Specific Insights
+## Random Input
+* Quick Sort often performs very well.
+## Sorted Input
+* Quick Sort degrades significantly.
+* Merge Sort remains stable.
+## Reverse Sorted Input
+* Similar degradation observed in Quick Sort.
+## Nearly Sorted Input
+* Merge Sort performs consistently.
+## Duplicate Heavy Input
+* Merge Sort handles duplicates efficiently.
+
+# 11. Discussion
+## Why Do Algorithms Differ Despite Same Big-O?
+Big-O only describes growth rate.
+Practical runtime also depends on:
+* Number of comparisons
+* Number of swaps
+* Function call overhead
+* Memory allocation
+* Input structure
+## External Factors Affecting Timing
+* CPU scheduling
+* Background processes
+* Python interpreter overhead
+* Garbage collection
+* Cache effects
+
+# 12. Conclusion
+The experimental analysis leads to the following conclusions:
+1. Merge Sort provided the best overall performance.
+2. Heap Sort used the least memory.
+3. Quick Sort was highly sensitive to pivot selection.
+4. Input distribution strongly affects performance.
+5. Constant factors significantly influence real-world runtime.
+6. Algorithms with identical asymptotic complexity may perform very differently in practice.
+
+# 13. Files Generated
+The project automatically generates:
+* `raw_results.csv`
+* `results.csv`
+* Graph images in `figures/`
+
+# 14. Graphs Generated
+1. Average Time vs Input Size
+2. Comparisons vs Input Size
+3. Swaps/Data Movements vs Input Size
+4. Recursive Calls vs Input Size
+5. Maximum Recursion Depth vs Input Size
+6. Peak Memory Usage vs Input Size
+7. Constant Factor vs Input Size
+
+# 15. Tools and Libraries Used
+* Python 3
+* Jupyter Notebook
+* pandas
+* matplotlib
+* tracemalloc
+* gc
+* math
+* random
+* time
